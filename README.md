@@ -9,16 +9,14 @@ This project extends Project 3, Scheduling, that we were assigned in class. It d
 
 ## MLFQ in Detail:
 
-MLFQ , or Multi-Level Feedback Queue, is a scheduling algorithm that attempts to remedy both turnaround time and response time, to make the scheduler extremely efficient. Remedying turnaround time is achieved by running shorter jobs first, and remedying response time helps jobs that are waiting for interaction/user input. 
+- MLFQ , or Multi-Level Feedback Queue, is a scheduling algorithm that attempts to remedy both turnaround time and response time, to make the scheduler extremely efficient. Remedying turnaround time is achieved by running shorter jobs first, and remedying response time helps jobs that are waiting for interaction/user input. 
 
-MLFQ attempts to optimize the aforementioned factors without prior knowledge of the durations of the jobs/processes it will receive, and how interactive they are with the CPU. It 
-essentially learns from its past and uses MLFQ attempts to optimize the aforementioned factors without prior knowledge of the durations of the jobs/processes it will receive, and
-how interactive they are with the CPU. It essentially learns from its past and uses that information to decrease or increase a process’s priority as it sees fit.
-I have used 4 queues. The basic structure of the program is as follows:
+- MLFQ attempts to optimize the aforementioned factors without prior knowledge of the durations of the jobs/processes it will receive, and how interactive they are with the CPU. It essentially learns from its past and uses MLFQ attempts to optimize the aforementioned factors without prior knowledge of the durations of the jobs/processes it will receive, and how interactive they are with the CPU. It essentially learns from its past and uses that information to decrease or increase a process’s priority as it sees fit.
+- I have used 4 queues. The basic structure of the program is as follows:
 	- A process is unloaded from the workload and placed in the queue with the highest priority, i.e., queue 1, if its arrival time is before or at the current time.
 	- There is a loop that loops for the duration of one time slice, which is 5ms in my project.
   	- The highest queue that contains at least one job is selected as “curQueue”. If no queue contains any jobs, we would break out; however, this situation is unlikely as the main loop would not have been entered.
  	- If the queue contains more than one job, they are sent to the round robin method, as all the jobs in that queue have equal priority.
-   - If not, there are 2 possibilities for the jobs.
-   - If the job has interrupts, and those interrupts lie within the remaining allotted CPU time the job has, then it is run until it has to relinquish the CPU.
-   - Else, it is a fairly straightforward process; the job is run for the entire duration of its time slice and then a new time slice begins.
+  	 - If not, there are 2 possibilities for the jobs.
+   	- If the job has interrupts, and those interrupts lie within the remaining allotted CPU time the job has, then it is run until it has to relinquish the CPU.
+  	 - Else, it is a fairly straightforward process; the job is run for the entire duration of its time slice and then a new time slice begins.
