@@ -1,15 +1,19 @@
 #include <list>
 #include <queue>
 #include <string>
+#include <map>
 
 using namespace std;
 
 typedef struct Process Process;
 struct Process {
-  int arrival;    // known from txt file
-  int first_run;  // filled during scheduling algo
-  int duration;   // known from txt file
-  int completion; // filled during scheduling algo
+  int arrival;
+  int first_run;
+  int durationLeft;
+  int duration;
+  int completion;
+  int interrupts[3]; 
+  int allottedTime;
 };
 
 class ArrivalComparator {
@@ -49,3 +53,5 @@ list<Process> rr(pqueue_arrival workload);
 float avg_turnaround(list<Process> processes);
 float avg_response(list<Process> processes);
 void show_metrics(list<Process> processes);
+
+
