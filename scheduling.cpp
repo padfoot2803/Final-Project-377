@@ -191,7 +191,8 @@ int placeHolder = curProc.interrupts[i];//getting the next available interrupt o
                         else{
                                 curProc.allottedTime -= (interruptTime - timePassed);
                                 curProc.durationLeft -= (interruptTime - timePassed);
-                }
+                	}
+		}
                 //if the process had no (future) interrupts, we proceed as follows
                 else{
                         //just edit its duration by subtracting time slice from it
