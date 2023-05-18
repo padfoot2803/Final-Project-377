@@ -217,10 +217,12 @@ int placeHolder = curProc.interrupts[i];//getting the next available interrupt o
         }
         else{
                 pqueue_arrival toSend;
-		for(int i = 0; i < curQueueLen; ++i){
-			toSend.push(curQueue[i]);
-		}
-		rr(toSend);
+                int lenn = sizeof(curQueueLen)-sizeof(curQueue.front());
+                for(int i = 0; i < lenn; ++i){
+                        toSend.push(curQueue.front());
+                        curQueue.pop();
+                }
+                list <Process> complete = rr(toSend);
         }
 		}
     while(!procsArrived.empty()){
