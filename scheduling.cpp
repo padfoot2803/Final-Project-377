@@ -151,7 +151,11 @@ int placeHolder = curProc.interrupts[i];//getting the next available interrupt o
                 } 
         }
         else{
-                //round robin!
+                pqueue_arrival toSend;
+		for(int i = 0; i < curQueueLen; ++i){
+			toSend.push(curQueue[i]);
+		}
+		rr(toSend);
         }
 		}
     while(!procsArrived.empty()){
