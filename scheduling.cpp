@@ -48,6 +48,70 @@ void show_processes(list<Process> processes) {
     xs.pop_front();
   }
 }
+list<Process> rr(pqueue_arrival workload) {
+list <Process> complete; 
+        //pqueue_arrival procsArrived; // procs arrived so far
+  queue<Process> procsInExec;
+        int current_time = 0;
+
+  // exit only if both @workload and @procsInExec are empty
+  // i.e. keep executing if at least one is not empty
+        while(!(workload.empty() && procsInExec.empty())) 
+        {
+                Process proc; 
+
+                while(true){    
+
+                        if(workload.empty()){
+        // exit loop if workload empty - no new procs to execute except those already in @procsInExec
+                                break;
+                        }
+
+      // push all procs arrived in 1 sec of execution so far into @procsInExec
+                        proc = workload.top(); 
+                        if(proc.arrival <= current_time){                               
+                                procsInExec.push(proc);
+                                workload.pop();
+                        }
+                        else{
+        // exit loop if all newly arrived procs added to queue 
+                                break;
+                        }
+
+                }
+
+    // if no procs arrived so far then move to next proc that arrives
+    // ASSUMPTION: workload is not empty: TRUE OR FALSE
+                if(procsInExec.empty()){
+                        current_time = workload.top().arrival;
+                        continue; 
+                }
+
+                proc = procsInExec.front();
+                procsInExec.pop();
+		// if proc being run for the first time initialize first_run
+                if(proc.first_run == -1){
+                        proc.first_run = current_time;
+                }
+
+    // run the process for 1 sec and update current_time
+                proc.duration -= 1;
+    current_time += 1; 
+    // if proc finished executing update completion time and push it to @complete
+    // else push it back to procs Arrived to be scheduled for running again
+                if(proc.duration <= 0){
+            proc.completion = current_time;
+            complete.push_back(proc);
+    }
+    else{
+      procsInExec.push(proc);
+    }
+  }
+
+        return complete;
+
+}
+
 
 list<Process> mlfq (pqueue_arrival workload) {
   std::queue<Process> q1; //highest priority
